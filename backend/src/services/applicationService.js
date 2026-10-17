@@ -190,6 +190,7 @@ export const getApplications = async (filters, currentUser) => {
 
     const { data, error } = await query;
 
+   
     if (error) {
       console.error('=== GET APPLICATIONS ERROR ===');
       console.error('Supabase Error Code:', error.code);
@@ -201,10 +202,13 @@ export const getApplications = async (filters, currentUser) => {
       console.error('Institution ID:', currentUser.institution_id);
       console.error('Full Error:', JSON.stringify(error, null, 2));
       console.error('=============================');
+
       return {
         success: false,
         message: 'Failed to fetch applications.'
       };
+    }
+
     const enrichedData = (data || []).map(item => ({
       ...item,
       customer_id: item.citizen_id,
